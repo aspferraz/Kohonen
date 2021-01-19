@@ -82,24 +82,6 @@ def calcAccuracy(numClusters, pairs):
     return accuracy
 
 
-df_tra = getDataFrame('iris/10-fold/iris-10-10tra.dat')
-df_tst = getDataFrame('iris/10-fold/iris-10-10tst.dat')
-
-# Define the scaler for normalization
-scaler = StandardScaler().fit(df_tra.iloc[:, 0:4])
-
-X = scaler.transform(df_tra.iloc[:, 0:4])
-X_t = scaler.transform(df_tst.iloc[:, 0:4])
-Y_t = np.asarray(df_tst.iloc[:, 5])
-Y_t_ = np.asarray(df_tst.iloc[:, 4])
-
-maxEpochs = 1000
-alphaStart = 0.05
-alphaEnd = 0.001
-
-gridWidth = 3  # grids (4x4, 15x15, 40x40)
-
-
 def run():
     # Training #
 
@@ -150,4 +132,21 @@ def run():
     print(f'\nAccuracy: {calcAccuracy(3, results[:, 1:3])}')
 
 
-run()
+if __name__ == '__main__':
+    df_tra = getDataFrame('iris/10-fold/iris-10-10tra.dat')
+    df_tst = getDataFrame('iris/10-fold/iris-10-10tst.dat')
+
+    # Define the scaler for normalization
+    scaler = StandardScaler().fit(df_tra.iloc[:, 0:4])
+
+    X = scaler.transform(df_tra.iloc[:, 0:4])
+    X_t = scaler.transform(df_tst.iloc[:, 0:4])
+    Y_t = np.asarray(df_tst.iloc[:, 5])
+    Y_t_ = np.asarray(df_tst.iloc[:, 4])
+
+    maxEpochs = 1000
+    alphaStart = 0.05
+    alphaEnd = 0.001
+
+    gridWidth = 3  # grids (4x4, 15x15, 40x40)
+    run()
